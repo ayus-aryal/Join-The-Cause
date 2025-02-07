@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "932849210369",
+    "project_id": "jointhecause-max",
+    "storage_bucket": "jointhecause-max.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932849210369:android:c84b5742394d6796bbdc00",
+        "android_client_info": {
+          "package_name": "com.example.jointhecause"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "932849210369-6oicqg9m43hilap4ul5q88qqtiiettsp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jointhecause",
+            "certificate_hash": "b1d1e43fa9d51471698cb1a745e197e765fb7602"
+          }
+        },
+        {
+          "client_id": "932849210369-ugn73lsjgtrbv7v11jl1pcoc3rreq5ic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD95k8NCfHzzHq9nyMe5XMc5uGF_BVmd_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "932849210369-ugn73lsjgtrbv7v11jl1pcoc3rreq5ic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
