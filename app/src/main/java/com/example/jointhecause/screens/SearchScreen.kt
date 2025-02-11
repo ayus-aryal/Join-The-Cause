@@ -58,7 +58,7 @@ fun SearchScreen() {
                 modifier = Modifier.padding(24.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                Text("Find Your Luggage Storage ", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color(0xFF333333), fontFamily = customFontFamily)
+                Text("Find Your Luggage Storage ", fontSize = 25.sp, fontWeight = FontWeight.Bold, color = Color(0xFF333333), fontFamily = customFontFamily)
 
                 CustomTextField(value = location, onValueChange = { location = it }, label = "Enter Location")
                 CustomTextField(value = checkInDate, onValueChange = { checkInDate = it }, label = "Check-In Date")
