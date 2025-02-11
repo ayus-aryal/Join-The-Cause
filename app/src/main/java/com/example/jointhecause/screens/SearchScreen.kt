@@ -1,5 +1,3 @@
-package com.example.jointhecause.screens
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -40,6 +38,7 @@ fun SearchScreen() {
     var location by remember { mutableStateOf(TextFieldValue("")) }
     var checkInDate by remember { mutableStateOf(TextFieldValue("")) }
     var checkOutDate by remember { mutableStateOf(TextFieldValue("")) }
+    var noOfBags by remember { mutableStateOf(TextFieldValue("")) }
 
     Box(
         modifier = Modifier
@@ -63,6 +62,7 @@ fun SearchScreen() {
                 CustomTextField(value = location, onValueChange = { location = it }, label = "Enter Location")
                 CustomTextField(value = checkInDate, onValueChange = { checkInDate = it }, label = "Check-In Date")
                 CustomTextField(value = checkOutDate, onValueChange = { checkOutDate = it }, label = "Check-Out Date")
+                CustomTextField(value = noOfBags, onValueChange = { noOfBags = it }, label = "Number of Bags")
 
                 Button(
                     onClick = { /* Search Action */ },
@@ -70,7 +70,7 @@ fun SearchScreen() {
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8976FD)),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Search", fontSize = 18.sp, color = Color.White)
+                    Text("Search", fontSize = 18.sp, color = Color.White, fontFamily = customFontFamily)
                 }
             }
         }
