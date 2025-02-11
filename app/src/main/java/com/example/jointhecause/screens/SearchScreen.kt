@@ -12,11 +12,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.jointhecause.R
 
 class SearchScreenActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +32,11 @@ class SearchScreenActivity : ComponentActivity() {
 
 @Composable
 fun SearchScreen() {
+
+    val customFontFamily = FontFamily(
+        Font(R.font.inter) // Replace 'inter' with the name of your font file (without extension)
+    )
+
     var location by remember { mutableStateOf(TextFieldValue("")) }
     var checkInDate by remember { mutableStateOf(TextFieldValue("")) }
     var checkOutDate by remember { mutableStateOf(TextFieldValue("")) }
@@ -50,7 +58,7 @@ fun SearchScreen() {
                 modifier = Modifier.padding(24.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                Text("Find Your Luggage Storage ", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color(0xFF333333))
+                Text("Find Your Luggage Storage ", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color(0xFF333333), fontFamily = customFontFamily)
 
                 CustomTextField(value = location, onValueChange = { location = it }, label = "Enter Location")
                 CustomTextField(value = checkInDate, onValueChange = { checkInDate = it }, label = "Check-In Date")
