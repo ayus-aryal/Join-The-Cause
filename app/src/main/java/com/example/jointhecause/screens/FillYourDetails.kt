@@ -86,7 +86,7 @@ fun FillYourDetailsScreen() {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
                 text = "First name",
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Light,
                 fontSize = 18.sp,
                 fontFamily = customFontFamily,
@@ -107,7 +107,7 @@ fun FillYourDetailsScreen() {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
                 text = "Last name",
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Light,
                 fontSize = 18.sp,
                 fontFamily = customFontFamily,
@@ -128,7 +128,7 @@ fun FillYourDetailsScreen() {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
                 text = "Phone Number",
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.bodyMedium,
                 fontFamily = customFontFamily,
                 fontWeight = FontWeight.Light,
                 fontSize = 18.sp,
@@ -192,5 +192,6 @@ fun FillYourDetailsScreen() {
 @Preview(showBackground = true)
 @Composable
 fun FillYourDetailsScreenn() {
-    FillYourDetailsScreen()
+        FillYourDetailsScreen()
+
 }

@@ -31,8 +31,12 @@ class SearchScreenActivity : ComponentActivity() {
 @Composable
 fun SearchScreen() {
 
-    val customFontFamily = FontFamily(
+   val customFontFamily = FontFamily(
         Font(R.font.inter) // Replace 'inter' with the name of your font file (without extension)
+    )
+
+    val volkhov = FontFamily(
+        Font(R.font.volkhov)
     )
 
     var location by remember { mutableStateOf(TextFieldValue("")) }
@@ -92,5 +96,5 @@ fun CustomTextField(value: TextFieldValue, onValueChange: (TextFieldValue) -> Un
 @Composable
 fun SearchScreenn() {
     SearchScreen()
-    
+
 }
