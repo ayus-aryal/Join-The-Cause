@@ -23,6 +23,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.jointhecause.R
 
 class SearchScreenActivity : ComponentActivity() {
@@ -64,7 +65,7 @@ fun SearchScreen() {
                 border = BorderStroke(2.dp, Color(0xFFB0B0B0)),
                 modifier = Modifier.padding(8.dp),
 
-            ) {
+                ) {
                 Column(
                     modifier = Modifier.padding(24.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
