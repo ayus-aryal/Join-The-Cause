@@ -4,6 +4,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -31,11 +33,9 @@ class SearchScreenActivity : ComponentActivity() {
 
 // Define Fonts
 val customFontFamily = FontFamily(Font(R.font.inter))
-val volkhov = FontFamily(Font(R.font.volkhov))
 
 @Composable
 fun SearchScreen() {
-
     var location by remember { mutableStateOf(TextFieldValue("")) }
     var checkInDate by remember { mutableStateOf(TextFieldValue("")) }
     var checkOutDate by remember { mutableStateOf(TextFieldValue("")) }
@@ -110,13 +110,24 @@ fun SearchScreen() {
                     modifier = Modifier.padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text(
-                        "Recent Searches",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFF333333),
-                        fontFamily = customFontFamily
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = "Recent Searches",
+                            tint = Color(0xFF333333),
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp)) // Space between icon and text
+                        Text(
+                            "Recent Searches",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF333333),
+                            fontFamily = customFontFamily
+                        )
+                    }
 
                     if (searchHistory.isEmpty()) {
                         Text(

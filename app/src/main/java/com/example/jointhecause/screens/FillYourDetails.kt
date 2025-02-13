@@ -192,6 +192,6 @@ fun FillYourDetailsScreen() {
 @Preview(showBackground = true)
 @Composable
 fun FillYourDetailsScreenn() {
-        FillYourDetailsScreen()
+         FillYourDetailsScreen()
 
 }
