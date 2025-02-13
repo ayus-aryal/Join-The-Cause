@@ -1,6 +1,9 @@
+package com.example.jointhecause.ui.screens
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,7 +34,7 @@ class SearchScreenActivity : ComponentActivity() {
     }
 }
 
-// Define Fonts
+// Define Custom Font
 val customFontFamily = FontFamily(Font(R.font.inter))
 
 @Composable
@@ -40,20 +43,17 @@ fun SearchScreen() {
     var checkInDate by remember { mutableStateOf(TextFieldValue("")) }
     var checkOutDate by remember { mutableStateOf(TextFieldValue("")) }
     var noOfBags by remember { mutableStateOf(TextFieldValue("")) }
-
-    // List to store search history
     var searchHistory by remember { mutableStateOf(listOf<String>()) }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Brush.verticalGradient(listOf(Color(0xFFFCA61F), Color(0xFFFCA61F)))),
+            .background(Color(0xFFF5F5F5))
+            .padding(16.dp),
         contentAlignment = Alignment.TopCenter
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
+            modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -61,17 +61,19 @@ fun SearchScreen() {
             Card(
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White),
-                modifier = Modifier.padding(16.dp)
+                border = BorderStroke(2.dp, Color(0xFFB0B0B0)),
+                modifier = Modifier.padding(8.dp),
+
             ) {
                 Column(
                     modifier = Modifier.padding(24.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Text(
                         "Find Your Luggage Storage",
-                        fontSize = 25.sp,
+                        fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color(0xFF333333),
+                        color = Color(0xFF4A4A4A), // Bright Grey
                         fontFamily = customFontFamily
                     )
 
@@ -82,14 +84,13 @@ fun SearchScreen() {
 
                     Button(
                         onClick = {
-                            // Save search to history list
                             val searchEntry = "${location.text}, ${checkInDate.text}, ${checkOutDate.text}, ${noOfBags.text}"
                             if (searchEntry.isNotBlank()) {
-                                searchHistory = listOf(searchEntry) + searchHistory.take(4) // Keep last 5 searches
+                                searchHistory = listOf(searchEntry) + searchHistory.take(4)
                             }
                         },
                         shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8976FD)),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFDBA09)), // Fuel Yellow
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text("Search", fontSize = 18.sp, color = Color.White, fontFamily = customFontFamily)
@@ -97,18 +98,16 @@ fun SearchScreen() {
                 }
             }
 
-            // Recent Searches Card (Always Visible)
+            // Recent Searches Card
             Card(
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White),
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth()
-                    .fillMaxSize()
+                modifier = Modifier.fillMaxWidth(),
+                border = BorderStroke(2.dp, Color(0xFFB0B0B0)),
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically
@@ -116,15 +115,15 @@ fun SearchScreen() {
                         Icon(
                             imageVector = Icons.Default.Search,
                             contentDescription = "Recent Searches",
-                            tint = Color(0xFF333333),
+                            tint = Color(0xFF6A5ACD), // Purple Haze
                             modifier = Modifier.size(24.dp)
                         )
-                        Spacer(modifier = Modifier.width(8.dp)) // Space between icon and text
+                        Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             "Recent Searches",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color(0xFF333333),
+                            color = Color(0xFF4A4A4A), // Bright Grey
                             fontFamily = customFontFamily
                         )
                     }
@@ -137,13 +136,19 @@ fun SearchScreen() {
                             fontFamily = customFontFamily
                         )
                     } else {
-                        searchHistory.forEach { searchItem ->
-                            Text(
-                                searchItem,
-                                fontSize = 16.sp,
-                                color = Color.Gray,
-                                fontFamily = customFontFamily
-                            )
+                        searchHistory.forEachIndexed { index, searchItem ->
+                            Column {
+                                Text(
+                                    searchItem,
+                                    fontSize = 16.sp,
+                                    color = Color.Gray,
+                                    fontFamily = customFontFamily,
+                                    modifier = Modifier.padding(vertical = 4.dp)
+                                )
+                                if (index < searchHistory.lastIndex) {
+                                    Divider(color = Color(0xFFB0B0B0)) // Mid Grey Divider
+                                }
+                            }
                         }
                     }
                 }
@@ -158,10 +163,15 @@ fun CustomTextField(value: TextFieldValue, onValueChange: (TextFieldValue) -> Un
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
-        label = { Text(label) },
+        label = { Text(label, color = Color(0xFF4A4A4A)) }, // Bright Grey
         shape = RoundedCornerShape(12.dp),
         modifier = Modifier.fillMaxWidth(),
-        textStyle = TextStyle(fontFamily = customFontFamily)
+        textStyle = TextStyle(fontSize = 16.sp, fontFamily = customFontFamily, color = Color(0xFF4A4A4A)), // Bright Grey
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = Color(0xFF58A6FF), // Day Sky Blue
+            unfocusedBorderColor = Color(0xFFB0B0B0), // Mid Grey
+            cursorColor = Color(0xFF58A6FF) // Cursor color
+        )
     )
 }
 
