@@ -209,6 +209,6 @@ fun FillYourDetailsScreen(navController: NavController) {
 @Preview(showBackground = true)
 @Composable
 fun FillYourDetailsScreenPreview() {
-    val navController = rememberNavController() // Create a mock NavController
+    val navController = rememberNavController()
     FillYourDetailsScreen(navController)
 }

@@ -67,6 +67,12 @@ dependencies {
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.androidx.storage)
+    implementation(libs.androidx.foundation.android)
+    implementation(libs.play.services.location)
+    implementation(libs.androidx.foundation.layout.android)
+    implementation(libs.androidx.foundation.layout.android)
+    implementation(libs.androidx.foundation.layout.android)
+    implementation(libs.androidx.foundation.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -91,6 +97,13 @@ dependencies {
 
     implementation(platform(libs.firebase.bom))
     implementation("com.google.firebase:firebase-firestore-ktx")
+
+
+    implementation("androidx.compose.ui:ui:1.7.8") // Make sure you have the latest Compose version
+    implementation("androidx.compose.material3:material3:1.3.1")
+
+   // implementation(libs.kmp.date.time.picker)
+
 
 
 
