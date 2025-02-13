@@ -99,7 +99,14 @@ fun ModernSearchBar(onSearch: (String) -> Unit) {
                 )
             )
 
-            Spacer(modifier = Modifier.width(8.dp))
+            Divider(
+                color = Color.Gray, // Set line color
+                modifier = Modifier
+                    .height(24.dp) // Adjust height to match text/icons
+                    .width(1.dp) // Thin line
+            )
+
+            Spacer(modifier = Modifier.width(10.dp))
 
             // Date Picker
             IconButton(onClick = { showDatePicker { date = it } }) {
@@ -107,7 +114,16 @@ fun ModernSearchBar(onSearch: (String) -> Unit) {
             }
             Text(text = date, style = MaterialTheme.typography.bodyMedium, fontFamily = customFontFamily, color = Color.DarkGray)
 
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(10.dp))
+
+            Divider(
+                color = Color.Gray, // Set line color
+                modifier = Modifier
+                    .height(24.dp) // Adjust height to match text/icons
+                    .width(1.dp) // Thin line
+            )
+
+           Spacer(modifier = Modifier.width(8.dp))
 
             // Bags Icon + Text
             IconButton(onClick = { /* Select Bags */ }) {
