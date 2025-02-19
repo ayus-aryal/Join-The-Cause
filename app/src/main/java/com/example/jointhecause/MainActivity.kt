@@ -12,8 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.jointhecause.myviewmodels.GoogleSignInViewModel
 import com.example.jointhecause.screens.FillYourDetailsScreen
 import com.example.jointhecause.screens.WelcomeScreen
-import com.example.jointhecause.ui.screens.SearchScreen
-import com.example.jointhecause.ui.theme.JoinTheCauseTheme
+import com.example.jointhecause.screens.SearchScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

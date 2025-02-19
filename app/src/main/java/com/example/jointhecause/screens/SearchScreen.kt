@@ -1,4 +1,4 @@
-package com.example.jointhecause.ui.screens
+package com.example.jointhecause.screens
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -13,7 +13,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
