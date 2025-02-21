@@ -3,6 +3,7 @@ package com.example.jointhecause.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -22,6 +23,9 @@ import com.example.jointhecause.models.Ngo
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.tasks.await
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+
 
 @Composable
 fun HomeScreen() {
@@ -98,20 +102,25 @@ fun FilterChips() {
 @Composable
 fun NgoList() {
     val firestore = FirebaseFirestore.getInstance()
-    var ngoList by remember { mutableStateOf<List<Ngo>?>(null) }
+    val ngoList = remember { mutableStateListOf<Ngo>() }
     var isLoading by remember { mutableStateOf(true) }
 
+    // Listen for real-time updates
     LaunchedEffect(Unit) {
-        try {
-            val snapshot = firestore.collection("ngos").get().await()
-            val fetchedNgos = snapshot.documents.mapNotNull { doc ->
-                doc.toObject<Ngo>()?.copy(id = doc.id) // Assign Firestore document ID
+        firestore.collection("ngos").addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                e.printStackTrace()
+                return@addSnapshotListener
             }
-            ngoList = fetchedNgos
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-            isLoading = false
+
+            snapshot?.let {
+                val fetchedNgos = it.documents.mapNotNull { doc ->
+                    doc.toObject<Ngo>()?.copy(id = doc.id)
+                }
+                ngoList.clear()
+                ngoList.addAll(fetchedNgos)
+                isLoading = false
+            }
         }
     }
 
@@ -120,14 +129,15 @@ fun NgoList() {
             CircularProgressIndicator()
         }
     } else {
-        Column(modifier = Modifier.padding(16.dp)) {
-            ngoList?.forEach { ngo ->
+        LazyColumn(modifier = Modifier.padding(16.dp)) {
+            items(ngoList) { ngo ->
                 NgoCard(ngo)
                 Spacer(modifier = Modifier.height(12.dp))
             }
         }
     }
 }
+
 
 @Composable
 fun NgoCard(ngo: Ngo) {
