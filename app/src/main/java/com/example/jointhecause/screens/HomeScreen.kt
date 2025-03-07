@@ -27,9 +27,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 
 
-
-
-
 @Composable
 fun HomeScreen() {
     Scaffold(
