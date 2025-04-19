@@ -1,6 +1,13 @@
 package com.example.jointhecause.screens
 
+
+import androidx.compose.ui.res.painterResource
+
+//noinspection SuspiciousImport
+import com.example.jointhecause.R
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -59,12 +66,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import com.example.jointhecause.models.Ngo
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.toObject
-
 
 
 @Composable
@@ -188,38 +192,60 @@ fun NgoCard(ngo: Ngo) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
         Row(
             modifier = Modifier
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            AsyncImage(
-                model = ngo.imageUrl,
+
+            // NGO Logo
+            Image(
+                painter = painterResource(id = R.drawable.logo), // Add a static image in res/drawable
                 contentDescription = ngo.name,
                 modifier = Modifier
                     .size(64.dp)
                     .clip(CircleShape)
-                    .background(Color.LightGray),
-                placeholder = painterResource(id = android.R.drawable.ic_menu_report_image),
-                error = painterResource(id = android.R.drawable.ic_menu_report_image),
+                    .background(Color(0xFFF0F0F0)),
                 contentScale = ContentScale.Crop
             )
 
             Spacer(modifier = Modifier.width(16.dp))
 
-            Text(
-                text = ngo.name,
-                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            // Text content
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text(
+                    text = ngo.name,
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontWeight = FontWeight.Bold
+                    ),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = "Reg No: ${ngo.id}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color.Gray
+                )
+                Text(
+                    text = "Category: ${ngo.category}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color(0xFF4CAF50) // a nice green for category
+                )
+            }
         }
     }
-
 }
+
+
+
+
+
 
 
 @Composable
