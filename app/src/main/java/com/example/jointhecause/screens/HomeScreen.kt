@@ -25,9 +25,12 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.rounded.CalendarMonth
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedTextField
@@ -44,10 +47,16 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -136,7 +145,7 @@ fun NgoList() {
     val ngoList = remember { mutableStateListOf<Ngo>() }
     var isLoading by remember { mutableStateOf(true) }
 
-    // Listen for real-time updates
+    // Listen for real-time updates from Firestore
     LaunchedEffect(Unit) {
         firestore.collection("ngos").addSnapshotListener { snapshot, e ->
             if (e != null) {
@@ -155,11 +164,13 @@ fun NgoList() {
         }
     }
 
+    // Show loading indicator while fetching data
     if (isLoading) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.Alignment.Center) {
             CircularProgressIndicator()
         }
     } else {
+        // Display the list of NGOs
         LazyColumn(modifier = Modifier.padding(16.dp)) {
             items(ngoList) { ngo ->
                 NgoCard(ngo)
@@ -170,30 +181,46 @@ fun NgoList() {
 }
 
 
+
 @Composable
 fun NgoCard(ngo: Ngo) {
-    Row(
+    Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { /* TODO: Navigate to NGO details screen */ }
-            .padding(12.dp)
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        shape = RoundedCornerShape(16.dp)
     ) {
-        AsyncImage(
-            model = ngo.imageUrl,
-            contentDescription = ngo.name,
+        Row(
             modifier = Modifier
-                .size(50.dp)
-                .background(Color.LightGray, shape = CircleShape)
-                .padding(4.dp)
-        )
-        Spacer(modifier = Modifier.width(12.dp))
-        Column {
-            Text(ngo.name, fontWeight = FontWeight.Bold, fontSize = 18.sp)
-            Text(ngo.details, fontSize = 14.sp, color = Color.Gray)
-            Text(ngo.category, fontSize = 12.sp, color = Color.Gray)
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            AsyncImage(
+                model = ngo.imageUrl,
+                contentDescription = ngo.name,
+                modifier = Modifier
+                    .size(64.dp)
+                    .clip(CircleShape)
+                    .background(Color.LightGray),
+                placeholder = painterResource(id = android.R.drawable.ic_menu_report_image),
+                error = painterResource(id = android.R.drawable.ic_menu_report_image),
+                contentScale = ContentScale.Crop
+            )
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Text(
+                text = ngo.name,
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
         }
     }
+
 }
+
 
 @Composable
 fun BottomNavBar() {

@@ -165,7 +165,7 @@ fun FillYourDetailsScreen(navController: NavController) {
         ) {
             Button(
                 onClick = {
-                    navController.navigate("search_screen") {
+                    navController.navigate("home_screen") {
 
                     }
                 }

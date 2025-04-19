@@ -11,8 +11,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.jointhecause.myviewmodels.GoogleSignInViewModel
 import com.example.jointhecause.screens.FillYourDetailsScreen
+import com.example.jointhecause.screens.HomeScreen
 import com.example.jointhecause.screens.WelcomeScreen
-import com.example.jointhecause.screens.SearchScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,11 +43,10 @@ fun JoinTheCause() {
             FillYourDetailsScreen(navController)
         }
 
-        composable(route = "search_screen") {
-            SearchScreen()
+
+        composable(route = "home_screen") {
+            HomeScreen()
         }
-
-
 
 
     }
