@@ -165,7 +165,7 @@ fun NgoList() {
 
     // Show loading indicator while fetching data
     if (isLoading) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.Alignment.Center) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
         }
     } else {
