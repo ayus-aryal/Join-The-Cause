@@ -68,18 +68,56 @@ import com.google.firebase.firestore.toObject
 
 @Composable
 fun HomeScreen() {
+    var searchQuery by remember { mutableStateOf("") }
+    val allNgos = remember { mutableStateListOf<Ngo>() }
+    var isLoading by remember { mutableStateOf(true) }
+
+    // Fetch NGOs once
+    LaunchedEffect(Unit) {
+        FirebaseFirestore.getInstance().collection("ngos")
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    e.printStackTrace()
+                    return@addSnapshotListener
+                }
+
+                snapshot?.let {
+                    val fetchedNgos = it.documents.mapNotNull { doc ->
+                        doc.toObject<Ngo>()?.copy(id = doc.id)
+                    }
+                    allNgos.clear()
+                    allNgos.addAll(fetchedNgos)
+                    isLoading = false
+                }
+            }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(16.dp) // or pass padding from Scaffold if needed
+            .padding(16.dp)
     ) {
         TopBar()
-        SearchBar()
-        FilterChips()
-        NgoList()
+
+        NgoSearchBar(
+            query = searchQuery,
+            onQueryChange = { searchQuery = it }
+        )
+
+        if (isLoading) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator()
+            }
+        } else {
+            val filteredNgos = allNgos.filter {
+                it.name.contains(searchQuery, ignoreCase = true)
+            }
+            NgoList(ngoList = filteredNgos)
+        }
     }
 }
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -92,13 +130,11 @@ fun TopBar() {
 }
 
 @Composable
-fun SearchBar() {
-    var text by remember { mutableStateOf("") }
-
+fun NgoSearchBar(query: String, onQueryChange: (String) -> Unit) {
     OutlinedTextField(
-        value = text,
-        onValueChange = { text = it },
-        placeholder = { Text("Search") },
+        value = query,
+        onValueChange = onQueryChange,
+        placeholder = { Text("Search NGOs") },
         leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = "Search") },
         shape = RoundedCornerShape(12.dp),
         modifier = Modifier
@@ -110,6 +146,7 @@ fun SearchBar() {
         )
     )
 }
+
 
 @Composable
 fun FilterChips() {
@@ -134,47 +171,16 @@ fun FilterChips() {
     }
 }
 
-// NGO List with Firestore
 @Composable
-fun NgoList() {
-    val firestore = FirebaseFirestore.getInstance()
-    val ngoList = remember { mutableStateListOf<Ngo>() }
-    var isLoading by remember { mutableStateOf(true) }
-
-    // Listen for real-time updates from Firestore
-    LaunchedEffect(Unit) {
-        firestore.collection("ngos").addSnapshotListener { snapshot, e ->
-            if (e != null) {
-                e.printStackTrace()
-                return@addSnapshotListener
-            }
-
-            snapshot?.let {
-                val fetchedNgos = it.documents.mapNotNull { doc ->
-                    doc.toObject<Ngo>()?.copy(id = doc.id)
-                }
-                ngoList.clear()
-                ngoList.addAll(fetchedNgos)
-                isLoading = false
-            }
-        }
-    }
-
-    // Show loading indicator while fetching data
-    if (isLoading) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            CircularProgressIndicator()
-        }
-    } else {
-        // Display the list of NGOs
-        LazyColumn(modifier = Modifier.padding(16.dp)) {
-            items(ngoList) { ngo ->
-                NgoCard(ngo)
-                Spacer(modifier = Modifier.height(12.dp))
-            }
+fun NgoList(ngoList: List<Ngo>) {
+    LazyColumn(modifier = Modifier.padding(16.dp)) {
+        items(ngoList) { ngo ->
+            NgoCard(ngo)
+            Spacer(modifier = Modifier.height(12.dp))
         }
     }
 }
+
 
 
 
