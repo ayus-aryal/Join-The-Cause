@@ -37,14 +37,12 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -62,7 +60,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.example.jointhecause.R
 import com.example.jointhecause.models.Ngo
 import com.google.firebase.firestore.FirebaseFirestore
@@ -223,12 +220,12 @@ fun NgoCard(ngo: Ngo) {
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = "Reg No: ${ngo.id}",
+                    text = "Reg No: ${ngo.registrationNumber}",
                     style = MaterialTheme.typography.bodySmall,
                     color = Color.Gray
                 )
                 Text(
-                    text = "Category: ${ngo.category}",
+                    text = "Headquarters: ${ngo.address}",
                     style = MaterialTheme.typography.bodySmall,
                     color = Color(0xFF4CAF50) // a nice green for category
                 )

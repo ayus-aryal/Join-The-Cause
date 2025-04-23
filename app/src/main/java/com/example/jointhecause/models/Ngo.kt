@@ -6,6 +6,8 @@ data class Ngo(
     val name: String = "",
     val details: String = "",
     val category: String = "",
-    val imageUrl: String = "" // URL to NGO's logo or image
+    val imageUrl: String = "", // URL to NGO's logo or image
+    val registrationNumber: String = "",
+    val address: String = ""
 )
 
