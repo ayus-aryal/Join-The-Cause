@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,14 +22,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.jointhecause.R
 
+
+
 @Composable
 fun WelcomeScreen(onGoogleSignInClick: () -> Unit) {
+
+
+
     Box(
 
         modifier = Modifier
             .fillMaxSize()
             .padding(bottom = 32.dp) //Optional spacing from bottom  (0xFFF8F2)
-            .background(Color(0x33F9CB43))
+            .background(Color.White)
 
     ) {
         // Logo at the top center

@@ -101,7 +101,7 @@ fun SearchBar() {
     OutlinedTextField(
         value = text,
         onValueChange = { text = it },
-        placeholder = { Text("Search for NGOs") },
+        placeholder = { Text("Search") },
         leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = "Search") },
         shape = RoundedCornerShape(12.dp),
         modifier = Modifier
@@ -255,7 +255,7 @@ fun BottomNavBar(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    NavigationBar(containerColor = Color.White) {
+    NavigationBar(containerColor = Color.White, contentColor = Color.Black) {
         items.forEach { (route, iconLabel) ->
             val (icon, label) = iconLabel
             NavigationBarItem(
@@ -272,7 +272,8 @@ fun BottomNavBar(navController: NavController) {
                     }
                 },
                 icon = { Icon(imageVector = icon, contentDescription = label) },
-                label = { Text(label) }
+                label = { Text(label) },
+
             )
         }
     }

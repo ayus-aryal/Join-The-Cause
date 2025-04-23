@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.JoinTheCause" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- Custom Theme for JoinTheCause app -->
+    <style name="Theme.JoinTheCause" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- Set window background color to white -->
+        <item name="android:windowBackground">@android:color/white</item>
+
+        <!-- Ensure the status bar and navigation bar are set to transparent (or white) -->
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
+
+        <!-- Optional: If you want your status bar text and icons to be dark, you can use light status bar -->
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
 </resources>

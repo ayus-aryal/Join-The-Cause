@@ -117,6 +117,7 @@ dependencies {
 
     implementation("androidx.compose.material3:material3:1.0.0")  // Or the latest version
 
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.34.0")
 
 
 
