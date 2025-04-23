@@ -60,6 +60,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.jointhecause.R
 import com.example.jointhecause.models.Ngo
 import com.google.firebase.firestore.FirebaseFirestore
@@ -68,22 +71,19 @@ import com.google.firebase.firestore.toObject
 
 @Composable
 fun HomeScreen() {
-    Scaffold(
-        topBar = { TopBar() },
-        bottomBar = { BottomNavBar() }
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.White)
-                .padding(paddingValues)
-        ) {
-            SearchBar()
-            FilterChips()
-            NgoList()
-        }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+            .padding(16.dp) // or pass padding from Scaffold if needed
+    ) {
+        TopBar()
+        SearchBar()
+        FilterChips()
+        NgoList()
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -244,27 +244,40 @@ fun NgoCard(ngo: Ngo) {
 
 
 @Composable
-fun BottomNavBar() {
-    var selectedTab by remember { mutableIntStateOf(0) }
+fun BottomNavBar(navController: NavController) {
+    val items = listOf(
+        "home" to (Icons.Default.Home to "Home"),
+        "events" to (Icons.Rounded.CalendarMonth to "Events"),
+        "alerts" to (Icons.Default.Notifications to "Alerts"),
+        "profile" to (Icons.Default.Person to "Profile")
+    )
+
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
 
     NavigationBar(containerColor = Color.White) {
-        val items = listOf(
-            Icons.Default.Home to "Home",
-            Icons.Rounded.CalendarMonth to "Events",
-            Icons.Default.Notifications to "Alerts",
-            Icons.Default.Person to "Profile"
-        )
-
-        items.forEachIndexed { index, (icon, label) ->
+        items.forEach { (route, iconLabel) ->
+            val (icon, label) = iconLabel
             NavigationBarItem(
-                selected = selectedTab == index,
-                onClick = { selectedTab = index },
+                selected = currentRoute == route,
+                onClick = {
+                    if (currentRoute != route) {
+                        navController.navigate(route) {
+                            popUpTo(navController.graph.startDestinationId) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                },
                 icon = { Icon(imageVector = icon, contentDescription = label) },
                 label = { Text(label) }
             )
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable

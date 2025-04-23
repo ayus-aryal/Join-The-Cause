@@ -165,7 +165,7 @@ fun FillYourDetailsScreen(navController: NavController) {
         ) {
             Button(
                 onClick = {
-                    navController.navigate("home_screen") {
+                    navController.navigate("home") {
 
                     }
                 }
@@ -187,7 +187,7 @@ fun FillYourDetailsScreen(navController: NavController) {
                             .set(userMap)
                             .addOnSuccessListener {
                                 Toast.makeText(context, "Profile saved successfully!", Toast.LENGTH_SHORT).show()
-                                navController.navigate("search_screen") // Navigate after success
+                                navController.navigate("home") // Navigate after success
 
                             }
                             .addOnFailureListener {
